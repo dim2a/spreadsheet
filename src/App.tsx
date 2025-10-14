@@ -1,7 +1,7 @@
 import './App.css'
 import jspreadsheet from 'jspreadsheet';
 import formula from '@jspreadsheet/formula';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import tableSettings from './tableData.json';
 // import tableSettings from '../calcData.json';
 import { Table } from './Table';
@@ -35,13 +35,16 @@ function App() {
     jspreadsheet.setExtensions({ formula });
   }, []);
 
+  const tables = useMemo(() => {
+    return tableSettings.map((data, index) => <Table key={index} tableSettings={data} />)
+    // return <Table tableSettings={tableSettings[0]} />
+  }, [tableSettings]);
+
   return (
     <div>
       <div style={{ width: '80vw', height: '80vh' }}>
         <div ref={containerRef} style={{ width: '100%', height: '100%' }} >
-          <Table
-            tableSettings={tableSettings}
-          />
+          {tables}
         </div>
       </div>
       <span>hello</span>

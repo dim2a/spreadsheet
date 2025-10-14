@@ -19,6 +19,7 @@ const INIT_WORKSHEET_CONFIG: jspreadsheet.Worksheet = {
   tableWidth: 1200,
   filters: false,
   tableOverflow: true,
+  virtualizationY: false,
 };
 
 export const Table = ({ tableSettings }: { tableSettings: { [key: string]: any } }) => {
@@ -42,7 +43,7 @@ export const Table = ({ tableSettings }: { tableSettings: { [key: string]: any }
       }
 
       if (tableSettings) {
-        console.log({tableSettings});
+        console.log('hi');
         
 try {
         jspreadsheet(jssRef.current, {
