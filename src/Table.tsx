@@ -19,10 +19,10 @@ const INIT_WORKSHEET_CONFIG: jspreadsheet.Worksheet = {
   tableWidth: 1200,
   filters: false,
   tableOverflow: true,
-  virtualizationY: false,
+  // virtualizationY: false,
 };
 
-export const Table = ({ tableSettings }: { tableSettings: { [key: string]: any } }) => {
+export const Table = ({ tableSettings }: { tableSettings: { [key: string]: unknown } }) => {
   const jssRef = useRef<
     (HTMLDivElement & { spreadsheet: jspreadsheet.spreadsheetInstance }) | null
   >(null);
@@ -30,43 +30,35 @@ export const Table = ({ tableSettings }: { tableSettings: { [key: string]: any }
 
   useEffect(() => {
     if (jssRef.current?.spreadsheet) {
-      jspreadsheet.destroy(jssRef.current);
-      console.log('init destroy');
-      
+      jspreadsheet.destroy(jssRef.current);      
     }
-
-        console.log('initSpreadsheet');
         
       if (!jssRef.current) {
         console.error('Container element not found');
         return;
       }
 
-      if (tableSettings) {
-        console.log('hi');
-        
-try {
-        jspreadsheet(jssRef.current, {
-          about: 'calculation',
-          worksheets: [{
-            ...INIT_WORKSHEET_CONFIG,
-            ...tableSettings,
-          }],
-        });
-        
-        console.log('Spreadsheet initialized successfully');
-      } catch (error) {
-        console.error('Error initializing spreadsheet:', error);
-      }
-      }
-      
+      if (tableSettings) {        
+        try {
+          jspreadsheet(jssRef.current, {
+            about: 'calculation',
+            worksheets: [{
+              ...INIT_WORKSHEET_CONFIG,
+              ...tableSettings,
+            }],
+          });
+          
+          console.log('Spreadsheet initialized successfully');
+        } catch (error) {
+          console.error('Error initializing spreadsheet:', error);
+        }
+      }      
 
   }, [tableSettings]);
 
   return (
     <div className="table">
       <div ref={jssRef} className="table-container"></div>
-      <span>ping</span>
     </div>
   );
 };
