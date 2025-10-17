@@ -4,6 +4,7 @@ import formula from '@jspreadsheet/formula-pro';
 import { useEffect, useMemo } from 'react';
 import tableSettings from './tableData.json';
 import { Table } from './Table';
+import 'jsuites/dist/jsuites.css';
 
 export const App = () => {
 
